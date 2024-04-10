@@ -1,0 +1,181 @@
+* {
+    font-family: Roboto, sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+.back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    transition: all 0.3s ease;
+}
+
+.back:hover {
+    background-color: #f2f2f2;
+    color: #5263FF;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+}
+
+h1 {
+    color: #000;
+    font-size: 48px;
+
+}
+
+.aside {
+    float: left;
+    width: 25%;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+}
+
+.actions {
+    background-color: #f2f2f2;
+    list-style-type: none;
+    padding: 20px;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.actions a {
+    display: block;
+    padding: 15px;
+    font-weight: bold;
+    border: 2px solid #e6e6e6;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #000;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    border-radius: 15px;
+}
+
+.actions a:hover {
+    background-color: #e6e6e6;
+}
+
+.logout {
+    margin-top: auto;
+}
+
+.aside .logout-link {
+    background-color: #fff;
+    color: red;
+    border: red solid 2px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.aside .logout-link:hover {
+    background-color: red;
+    color: white;
+}
+
+.profile {
+    float: right;
+    width: 70%;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    overflow: scroll;
+    height: 77vh;
+}
+
+.username {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.email {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.registration-date {
+    font-size: 16px;
+    color: #999;
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.additionally-info {
+    width: 100%;
+
+}
+
+.order {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.more {
+    text-decoration: none;
+    color: #5263FF;
+    font-weight: bold;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.more:hover {
+    text-decoration: underline;
+}
+
+iframe {
+    align-content: center;
+    display: block;
+    border: none;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px;
+}
+
+.change-password {
+    text-decoration: none;
+    color: #5263FF;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+}
+
+.change-password:hover {
+    text-decoration: underline;
+}
+
+
