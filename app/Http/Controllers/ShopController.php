@@ -38,22 +38,24 @@ class ShopController extends Controller
             'description' => 'required',
         ]);
 
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
 
         $shop = new Shop;
         $shop->name = $request->name;
         $shop->rating = $request->rating;
-        $shop->image = $imageName;
+        $shop->image = $this->uploadPhoto($request);
         $shop->description = $request->description;
         $shop->type = 'shop';
         $shop->save();
 
         return back()
-            ->with('success','Магазин успешно создан.')
-            ->with('image',$imageName);
+            ->with('success','Магазин успешно создан.');
     }
 
+    public function uploadPhoto(Request $request)
+    {
+        $path = $request->file('image')->store('images', 'public');
+        return $path;
+    }
 
 }
 

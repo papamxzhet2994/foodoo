@@ -111,19 +111,19 @@
         border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         z-index: 1000;
-        display: none; /* изначально скрываем */
+        display: none;
     }
 
     .search-suggestions.visible {
-        display: block; /* показываем список при наличии результата */
+        display: block;
     }
 
     #suggestions-list {
         list-style-type: none;
         padding: 0;
         margin: 0;
-        max-height: 200px; /* максимальная высота списка (чтобы не занимал слишком много места) */
-        overflow-y: auto; /* добавляем полосу прокрутки, если список слишком длинный */
+        max-height: 200px;
+        overflow-y: auto;
     }
 
     #suggestions-list li {
@@ -136,6 +136,95 @@
         background-color: #f0f0f0;
     }
 
+    .search-icon {
+        display: none;
+    }
+
+    .close-search {
+        display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+        .right-section {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .logo img {
+            margin-left: auto;
+            margin-right: auto;
+            width: 100px;
+            height: 70px;
+        }
+
+        .profile {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .auth-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 0;
+        }
+
+        .auth-buttons a.registration {
+            margin-left: 0;
+            font-size: 13px;
+            padding: 8px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .search-place input,
+        .search-place button {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .search-icon {
+            display: block;
+            cursor: pointer;
+            font-size: 25px;
+            color: #000;
+            margin-right: 15px;
+            margin-left: 100px;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .close-search {
+            cursor: pointer;
+            display: none;
+            font-size: 25px;
+            color: #000;
+            background-color: transparent;
+            border: none;
+            margin-left: 10px;
+            margin-top: 20px;
+        }
+
+        .search-place input {
+            display: block;
+            width: 0;
+            padding: 0;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-place input.expand {
+            width: 250px;
+            padding: 10px;
+            border: none;
+        }
+    }
 </style>
 <body>
 <header class="header">
@@ -144,12 +233,13 @@
     </div>
 
     <div class="right-section">
-
         @if (auth()->check())
             <div class="search-wrapper">
                 <div class="search-place">
+                    <a class="search-icon" onclick="toggleSearch()"><i class="fas fa-search"></i></a>
                     <input type="search" id="search-input" placeholder="Найти магазин или ресторан">
-                    <button type="submit" onclick="search()">Найти</button>
+                    <button type="button" onclick="search()">Найти</button>
+                    <a class="close-search" onclick="closeSearchDialog()"><i class="fas fa-times"></i></a>
                 </div>
                 <div class="search-suggestions">
                     <ul id="suggestions-list"></ul>
@@ -192,6 +282,8 @@
             .catch(error => {
                 console.error('There has been a problem with your fetch operation:', error);
             });
+
+        closeSearchDialog();
     }
 
     // Функция для выполнения поиска и отображения подсказок
@@ -245,5 +337,51 @@
             searchSuggestions(query);
         }
     });
+
+    function toggleSearch() {
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.querySelector('.search-place button');
+        const closeButton = document.querySelector('.search-place .close-search');
+        const profile = document.querySelector('.profile');
+        const searchIcon = document.querySelector('.search-icon');
+        const logo = document.querySelector('.logo');
+
+        if (!searchInput.classList.contains('expand')) {
+            searchInput.classList.add('expand');
+            searchInput.style.display = 'block';
+            searchButton.style.display = 'block';
+            closeButton.style.display = 'block';
+            profile.style.display = 'none';
+            searchIcon.style.display = 'none';
+            logo.style.display = 'none';
+        } else {
+            searchInput.classList.remove('expand');
+            setTimeout(() => {
+                searchInput.style.display = 'none';
+                searchButton.style.display = 'none';
+                closeButton.style.display = 'none';
+                profile.style.display = 'block';
+                searchIcon.style.display = 'flex';
+                logo.style.display = 'block';
+            }, 800);
+        }
+    }
+
+    function closeSearchDialog() {
+        const searchInput = document.querySelector('.search-place input');
+        searchInput.classList.remove('expand');
+        setTimeout(() => {
+            searchInput.style.display = 'none';
+            document.querySelector('.search-place button').style.display = 'none';
+            document.querySelector('.search-place .close-search').style.display = 'none';
+            document.querySelector('.profile').style.display = 'block';
+            document.querySelector('.search-icon').style.display = 'flex';
+            document.querySelector('.logo').style.display = 'block';
+        }, 300);
+    }
+
+
+
+
 </script>
 

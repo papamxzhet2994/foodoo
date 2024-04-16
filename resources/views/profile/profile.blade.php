@@ -78,7 +78,7 @@
 
     </div>
 </div>
-<a href="/" class="back"><i class="fas fa-arrow-left"></i> Назад</a>
+<a href="/" class="back"><i class="fas fa-chevron-left"></i> Назад</a>
 <script>
     function showUserData() {
         hideAllSections();

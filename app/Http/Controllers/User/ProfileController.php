@@ -36,7 +36,7 @@ class ProfileController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'password' => ['nullable', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
+            'password' => ['nullable', 'confirmed', Password::defaults()],
             'password_confirmation' => ['nullable', 'same:password'],
         ]);
 

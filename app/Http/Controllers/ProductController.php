@@ -83,22 +83,27 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:4096',
             'description' => 'required',
         ]);
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
+
+
         $product = new Product;
         $product->name = $request->name;
         $product->price = $request->price;
-        $product->image = $imageName;
+        $product->image = $this->uploadPhoto($request);
         $product->weight = $request->weight;
         $product->description = $request->description;
         $product->category_id = $request->category;
         $product->shop_id = $request->shop;
         $product->save();
         return back()
-            ->with('success','Продукт успешно создан.')
-            ->with('image',$imageName);
+            ->with('success','Продукт успешно создан.');
+    }
+
+    public function uploadPhoto(Request $request)
+    {
+        $path = $request->file('image')->store('images/products/', 'public');
+        return $path;
     }
 }

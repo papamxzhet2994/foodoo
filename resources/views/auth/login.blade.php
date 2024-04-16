@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>1
+    <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
     <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -159,6 +159,67 @@
             color: #5263FF;
         }
 
+        @media screen and (max-width: 768px) {
+            .aside,
+            .form {
+                width: 100%;
+                float: none;
+                height: auto;
+                background-color: #fff;
+            }
+
+            .form h1 {
+                margin-top: auto;
+                margin-bottom: 20px;
+            }
+
+            .aside h1 {
+                margin-top: 100px;
+                margin-bottom: 20px;
+            }
+
+            .aside iframe {
+                width: 50%;
+                height: auto;
+            }
+
+            .form form {
+                width: 90%;
+            }
+
+            .form .link-to-register {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .form .link-to-register p {
+                margin: 0;
+                text-align: center;
+            }
+
+            .form .link-to-register a {
+                margin-left: 0;
+            }
+
+            .form label {
+                width: 100%;
+            }
+
+            .form input {
+                width: 100%;
+            }
+
+            .form button {
+                width: 100%;
+            }
+
+            .back {
+
+            }
+        }
     </style>
 </head>
 <body>

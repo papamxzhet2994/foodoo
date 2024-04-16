@@ -19,7 +19,7 @@
             display: inline-block;
             width: 288px;
             height: 146px;
-            margin: 15px;
+            margin: 10px;
             max-height: 200px;
             /*overflow: hidden;*/
             transition: max-height 0.8s ease;
@@ -107,9 +107,8 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            max-width: 90%;
+            max-width: 82.5%;
             margin: 0 auto;
-
         }
 
         .container {
@@ -141,7 +140,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-weight: bold;
-            margin-right: 170px;
+            margin-right: 105px;
         }
 
         .show-all .button:hover {
@@ -150,6 +149,9 @@
 
         }
 
+        .slider-buttons {
+            display: none;
+        }
 
         .skeleton {
             width: 100%;
@@ -170,6 +172,161 @@
             100% {background-position: 468px 0}
         }
 
+
+        @media screen and (max-width: 768px) {
+            .show-all button {
+                display: none;
+            }
+
+            /* Добавьте этот CSS в ваш стилевой файл для стилизации слайдера */
+            .slider {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+            }
+
+
+            .shop-card {
+                scroll-snap-align: center;
+                flex: 0 0 auto;
+                width: 300px; /* Размер активной карточки */
+                margin: 0 20px; /* Отступы между карточками */
+                height: 144px;
+                transition: transform 0.5s ease-in-out;
+            }
+
+            .shop-card img {
+                width: 100%;
+                border-radius: 10px; /* Скругленные углы для изображений */
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                transition: transform 0.5s ease-in-out;
+            }
+
+            .shop-card.active {
+                transform: scale(1);
+            }
+
+            /* Стили для уменьшенных карточек */
+            .shop-card:not(.active) {
+                transform: scale(0.8);
+            }
+
+
+            .slider::-webkit-scrollbar {
+                display: none;
+            }
+
+
+            .slider-buttons {
+                display: flex; /* Используйте flex для лучшего выравнивания */
+                justify-content: center; /* Центрирование кнопок внутри контейнера */
+                align-items: center; /* Вертикальное выравнивание */
+                margin: 20px auto;
+                width: 100%;
+            }
+
+            .slider-buttons button {
+                background-color: #fff;
+                border: 2px solid #BD4932;
+                color: #BD4932;
+                font-size: 16px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-weight: bold;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                margin: 0 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                outline: none;
+            }
+
+            .slider-buttons button:hover,
+            .slider-buttons button:focus {
+                background-color: #BD4932;
+                color: #fff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+
+            .show-all-shops .shop-card {
+                max-height: none !important;
+            }
+
+            h1 {
+                margin-left: 0;
+                margin-right: 25px;
+                font-size: clamp(1.5rem, 5vw, 2.5rem);
+            }
+
+            .show-all h1 {
+                margin-left: 0;
+                margin-right: 25px;
+                font-size: clamp(1.5rem, 5vw, 2.5rem);
+            }
+
+            .restaurants-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-top: 10px;
+                margin-bottom: 200px;
+            }
+
+            .card-wrapper {
+                width: calc(50% - 20px); /* Вычисление ширины для двух карточек в строке с учетом отступов */
+                margin-right: 20px; /* Отступы между карточками */
+            }
+
+            .cards-container{
+                margin: 0 ;
+            }
+            .card {
+                width: 100%;
+                box-shadow: 5px 5px 20px 1px rgba(128, 128, 128, 0.2);
+                display: flex;
+                flex-direction: column;
+
+            }
+
+            .card:hover {
+                transform: none;
+            }
+
+            .card .card-media img {
+                height: auto;
+            }
+
+            .card .card-description {
+                padding: 8px;
+            }
+
+            .card .card-description .about-place {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .card .card-description .about-place .place-name,
+            .card .card-description .about-place .place-speciality {
+                font-size: 16px;
+            }
+
+            .card .card-description .about-place .rating {
+                font-size: 16px;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .card-wrapper a {
+                text-decoration: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -191,29 +348,36 @@
     {{--        <h1>Акции и предложения отсутствуют</h1>--}}
     {{--    @endif--}}
 </div>
+<h1 class="show-all">Магазины</h1>
 <div class="show-all">
-    <h1>Магазины</h1>
+    <span class="show-all-shops"></span>
     <button id="showShopsButton" class="button"></button>
 </div>
-<div class="shops-container">
-@foreach($shops as $shop)
+<div class="shops-container{{ $isMobile ? ' show-all-shops' : '' }}">
+    <div class="slider">
+    @foreach($shops as $shop)
         <a href="/shops/{{ $shop->id }}">
             <div class="shop-card">
-{{--                <div class="skeleton"></div>--}}
-                <img src="{{ asset('images/' . $shop->image) }}" class="skeleton" >
+                <img src="{{ asset('storage/' . $shop->image) }}" class="skeleton" >
             </div>
         </a>
     @endforeach
+    </div>
+</div>
+<div class="slider-buttons">
+    <button id="prevButton" class="slider-button"><i class="fas fa-chevron-left"></i></button>
+    <button id="nextButton" class="slider-button"><i class="fas fa-chevron-right"></i></button>
 </div>
 
 <h1 class="show-all">Рестораны</h1>
 <div class="restaurants-container">
     @foreach($restaurants as $restaurant)
+        <div class="card-wrapper">
         <a href="/restaurants/{{ $restaurant->id }}">
             <div class="cards-container">
                 <div class="card">
                     <div class="card-media">
-                        <img src="{{ asset('images/restaurants/' . $restaurant->image) }}" class="skeleton">
+                        <img src="{{ asset( 'storage/' . $restaurant->image) }}" class="skeleton">
                     </div>
                     <div class="card-description">
                         <div class="about-place">
@@ -229,16 +393,18 @@
                 </div>
             </div>
         </a>
+        </div>
     @endforeach
 </div>
-
-
 @include('layouts.footer')
 <script>
     window.onload = function() {
         let shops = document.querySelectorAll('.shops-container .shop-card');
         for (let i = 5; i < shops.length; i++) {
             shops[i].style.maxHeight = '0';
+        }
+        if (shops.length <= 5) {
+            document.getElementById('showShopsButton').style.display = 'none';
         }
 
         let button = document.getElementById('showShopsButton');
@@ -249,10 +415,11 @@
         button.appendChild(arrowIcon);
 
         button.addEventListener('click', () => {
+            let shops = document.querySelectorAll('.shops-container .shop-card');
             if (buttonText.nodeValue === 'Все') {
-                for (let i = 5; i < shops.length; i++) {
-                    shops[i].style.maxHeight = '500px'; // Замените это на максимальную высоту вашего .shop-card
-                }
+                shops.forEach(shop => {
+                    shop.style.maxHeight = '500px';
+                });
                 buttonText.nodeValue = 'Скрыть';
             } else {
                 for (let i = 5; i < shops.length; i++) {
@@ -263,9 +430,44 @@
         });
     };
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const slider = document.querySelector('.slider');
+        const cards = document.querySelectorAll('.shop-card');
+
+        function scaleCards() {
+            cards.forEach(card => {
+                if (slider.scrollLeft + slider.clientWidth >= card.offsetLeft && slider.scrollLeft <= card.offsetLeft + card.clientWidth) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+        }
+        slider.addEventListener('scroll', scaleCards);
+        scaleCards();
+    });
+
+    let prevButton = document.getElementById('prevButton');
+    let nextButton = document.getElementById('nextButton');
+
+    prevButton.addEventListener('click', () => {
+        let slider = document.querySelector('.slider');
+        let scrollPosition = slider.scrollLeft;
+        slider.scrollTo({
+            left: scrollPosition - 288,
+            behavior: 'smooth'
+        });
+    });
+
+    nextButton.addEventListener('click', () => {
+        let slider = document.querySelector('.slider');
+        let scrollPosition = slider.scrollLeft;
+        slider.scrollTo({
+            left: scrollPosition + 288,
+            behavior: 'smooth'
+        });
+    });
+
 </script>
-
-
-
 </body>
 </html>

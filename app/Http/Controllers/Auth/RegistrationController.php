@@ -20,14 +20,14 @@ class RegistrationController extends Controller
     {
         $data = $request->validated();
 
-        $user = User::query()->create([
+        User::query()->create([
             'last_name' => $data['last_name'],
             'first_name' => $data['first_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
-        event(new Registered($user));
+        // event(new Registered($user));
 
         return redirect()->route('login');
     }

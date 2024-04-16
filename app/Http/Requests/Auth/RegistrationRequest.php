@@ -28,7 +28,7 @@ class RegistrationRequest extends FormRequest
             'nickname' => 'sometimes|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => ['required', 'confirmed',
-                Password::min(8)->letters()->numbers()->symbols()]
+                Password::min(8)->letters()->numbers()]
         ];
     }
 }

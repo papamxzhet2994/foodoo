@@ -154,6 +154,44 @@
         .back-link:hover {
             color: #5263FF;
         }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                max-width: 100%;
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            textarea {
+                font-size: 14px;
+            }
+
+            input[type="submit"] {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+
+            .cart-item {
+                flex-direction: column;
+            }
+
+            .cart-item img {
+                max-width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .back-link {
+                font-size: 16px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -169,7 +207,7 @@
         @if (count($products) > 0)
             @foreach($products as $product)
                 <div class="cart-item">
-                    <img src="{{asset('images/') . '/' . $product->image }}" alt="{{ $product->name }}">
+                    <img src="{{asset('storage/' . $product->image ) }}" alt="{{ $product->name }}">
                     <div class="cart-item-info">
                         <h3>{{ $product->name }}</h3>
                         <p>Цена: {{ $product->price }}</p>
@@ -200,7 +238,7 @@
 
         <label for="map">Адрес:</label>
 {{--        <textarea id="address" name="address" rows="4" required></textarea>--}}
-        <div id="map" style="width: 800px; height: 400px"></div>
+        <div id="map" style="width: 100%; height: 300px"></div>
         <input type="hidden" id="address" name="address">
 
 

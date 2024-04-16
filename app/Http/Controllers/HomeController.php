@@ -11,9 +11,14 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $shops = Shop::all();
-        $restaurants = Restaurant::all(); // Получаем все рестораны
+        $isMobile = false;
+        if (isset($_SERVER['HTTP_USER_AGENT']) && (str_contains($_SERVER['HTTP_USER_AGENT'], 'Mobile') || str_contains($_SERVER['HTTP_USER_AGENT'], 'Tablet'))) {
+            $isMobile = true;
+        }
 
-        return view('home', compact('shops', 'restaurants'));
+        $shops = Shop::all();
+        $restaurants = Restaurant::all();
+
+        return view('home', compact('shops', 'restaurants', 'isMobile'));
     }
 }

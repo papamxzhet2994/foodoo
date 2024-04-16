@@ -162,6 +162,62 @@
             background-color: #f2f2f2;
             color: #5263FF;
         }
+
+        @media screen and (max-width: 768px) {
+            .aside,
+            .form {
+                width: 100%;
+                float: none;
+                height: auto;
+                background-color: #fff;
+            }
+
+            .form h1 {
+                margin-top: auto;
+                margin-bottom: 20px;
+                font-size: 2.8rem;
+            }
+
+            .aside h1 {
+                margin-top: 100px;
+                margin-bottom: 20px;
+            }
+
+            .aside iframe {
+                width: 50%;
+                height: auto;
+            }
+
+            .form form {
+                width: 90%;
+            }
+
+
+            .form .link-to-register p {
+                margin: 0;
+                text-align: center;
+            }
+
+            .form .link-to-register a {
+                margin-left: 0;
+            }
+
+            .form label {
+                width: 100%;
+            }
+
+            .form input {
+                width: 100%;
+            }
+
+            .form button {
+                width: 100%;
+            }
+
+            .back {
+
+            }
+        }
     </style>
 </head>
 <body>

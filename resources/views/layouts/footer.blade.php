@@ -110,6 +110,7 @@
         footer {
             font-size: 12px;
             line-height: 1.2;
+            margin: 0;
 
         }
 
@@ -117,7 +118,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-
+            text-align: center;
+            margin: 0 auto;
+            padding: 0;
         }
 
         .footer-logo {
@@ -137,7 +140,6 @@
             text-align: center;
             margin: 0 auto;
             padding: 0;
-
         }
 
         .footer-links ul li {

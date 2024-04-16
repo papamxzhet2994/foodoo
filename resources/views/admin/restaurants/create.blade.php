@@ -17,7 +17,7 @@
             </div>
             <div>
                 <label for="image">Изображение</label>
-                <input type="file" name="image" id="image">
+                <input type="file" name="image" id="image" accept="image/*">
             </div>
             <div>
                 <label for="description">Описание</label>

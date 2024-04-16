@@ -293,14 +293,151 @@
         transition: background-color 0.3s ease;
     }
 
+    i.fa-chevron-down, i.fa-chevron-up {
+        display: none;
+    }
+
     .search-container button[type="submit"]:hover {
         background-color: #9e3a26;
     }
 
 
+    @media screen and (max-width: 768px) {
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        .title {
+            margin-left: 10px;
+        }
+
+        .back {
+            font-size: 1rem;
+            padding: 5px;
+        }
+
+        .aside {
+            width: 90%;
+            float: none;
+            padding: 10px;
+        }
+
+        .aside h2 {
+            font-size: 1.2rem;
+        }
+
+        .aside a {
+            padding: 10px;
+        }
+
+        .aside button {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+
+        .container {
+            flex-direction: column;
+        }
+
+        .card {
+            flex: 0 0 100%;
+            padding: 10px;
+        }
+
+        .card img {
+            max-width: 200px;
+            height: 150px;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+        }
+
+        .card p {
+            font-size: 0.8rem;
+        }
+
+        .card .button {
+            font-size: 0.8rem;
+        }
+
+        .bucket {
+            padding: 10px;
+        }
+
+        .bucket p {
+            font-size: 0.8rem;
+        }
+
+        .bucket .button {
+            font-size: 1rem;
+        }
+
+        .cart {
+            border: 1px solid #f2f2f2;
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 25px;
+            overflow: hidden;
+            height: 100px;
+        }
+
+
+
+        .cart img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 10px;
+            border-radius: 10px;
+
+        }
+
+        .cart-item p,
+        .cart-item strong {
+            font-size: 0.8rem;
+        }
+
+        .cart .remove-from-cart {
+            font-size: 0.7rem;
+            color: #333;
+        }
+
+        .search-container input[type="text"] {
+            width: 200px;
+            font-size: 0.8rem;
+        }
+
+        .search-container button[type="submit"] {
+            font-size: 0.8rem;
+            margin-left: 0;
+
+        }
+
+        .aside .accordion-content {
+            display: none;
+        }
+
+        .aside .accordion-toggle {
+            cursor: pointer;
+        }
+
+        .aside .accordion-toggle::after {
+            float: right;
+        }
+
+        i.fas.fa-chevron-down {
+            float: right;
+        }
+
+        i.fas.fa-chevron-up {
+            float: right;
+        }
+    }
 </style>
 <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
-<a href="{{ route('home') }}" class="back"><i class="fas fa-arrow-left"></i> Назад</a>
+<a href="{{ route('home') }}" class="back"><i class="fas fa-chevron-left"></i> Назад</a>
 <h1 class="title">{{ $shop->name }} - Продукты</h1>
 
 <section class="search">
@@ -315,8 +452,8 @@
 </section>
 
 <aside class="aside">
-    <h2>Категории</h2>
-    <ul>
+    <h2 class="accordion-toggle">Категории<i class="fas fa-chevron-down"></i></h2>
+    <ul class="accordion-content">
         @foreach ($categories as $category)
             <li>
                 <a href="{{ route('products', ['shop' => $shop->id, 'category' => $category->id]) }}">{{ $category->name }}</a>
@@ -328,8 +465,9 @@
             </form>
         </li>
     </ul>
+
+    <h2>Корзина</h2>
     <aside class="bucket">
-        <h1>Корзина</h1>
         @php
             $cart = session()->get('cart', []);
         @endphp
@@ -337,7 +475,7 @@
         @if(count($cart) > 0)
             @foreach($cart as $id => $details)
                 <div class="cart">
-                    <img src="{{ asset('images/') . '/' . $details['image'] }}" alt="{{ $details['name'] }}">
+                    <img src="{{ asset('storage/' . $details['image'] ) }}" alt="{{ $details['name'] }}">
                     <div class="cart-item">
                         <p>{{ $details['name'] }}</p>
                         <strong>{{ $details['price'] }}</strong>
@@ -365,11 +503,12 @@
     </aside>
 </aside>
 
+
 <div class="container">
     @if ($products->count() > 0)
         @foreach($products as $product)
             <div class="card">
-                <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}">
+                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                 <h2>{{ $product->name }}</h2>
                 <p>{{ $product->weight }}</p>
                 <p>{{ $product->description }}</p>
@@ -450,6 +589,25 @@
             total = total.toFixed(2);
             document.querySelector('.total').textContent = 'Итого: ' + total + ' ₽';
         }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const accordionToggle = document.querySelector('.accordion-toggle');
+        const accordionContent = document.querySelector('.accordion-content');
+
+        accordionToggle.addEventListener('click', function() {
+            if (accordionContent.style.display === 'block') {
+                accordionContent.style.display = 'none';
+                accordionToggle.classList.remove('open');
+                accordionToggle.querySelector('i').classList.remove('fa-chevron-up');
+                accordionToggle.querySelector('i').classList.add('fa-chevron-down');
+            } else {
+                accordionContent.style.display = 'block';
+                accordionToggle.classList.add('open');
+                accordionToggle.querySelector('i').classList.remove('fa-chevron-down');
+                accordionToggle.querySelector('i').classList.add('fa-chevron-up');
+            }
+        });
     });
 
 </script>
