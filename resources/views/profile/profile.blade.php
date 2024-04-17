@@ -37,6 +37,7 @@
                 <h2>Данные пользователя</h2>
                 <h1 class="username">{{ auth()->user()->last_name . ' ' . auth()->user()->first_name }}</h1>
                 <p class="email">{{ auth()->user()->email }}</p>
+                <p class="email">Подтвержденный аккаунт: {{ auth()->user()->email_verified_at ? 'Да' : 'Нет' }}</p>
                 <div class="registration-date">
                     <p>Дата регистрации: {{ auth()->user()->created_at->format('d.m.Y') }}</p>
                 </div>

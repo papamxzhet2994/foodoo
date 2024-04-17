@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ShopController;
@@ -28,9 +29,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/restaurants/{id}', [RestaurantController::class, 'show'])->name('restaurants.show');
 Route::get('/shops/{id}', [ShopController::class, 'show'])->name('shops.show');
 
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/categories', [CategoryController::class, 'show'])->name('categories.index');
 
-Route::get('/products', [ProductController::class, 'index'])->name('products.shop_products');
+Route::get('/products', [ProductController::class, 'show'])->name('products.shop_products');
 Route::get('/products/{product}', [ProductController::class, 'search'])->name('products.search');
 Route::get('/products/shop/{shop}/category/{category}', [ProductController::class, 'showByCategory'])->name('products');
 Route::get('/products/reset-categories', [ProductController::class, 'resetCategory'])->name('products.shop_products.reset-categories');
@@ -51,8 +52,9 @@ Route::get('/orders/{id}/info', [OrderController::class, 'showInfo'])->name('ord
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
 
-
-
+Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+Route::get('/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
 Route::get('indev', function () {
     return view('layouts.indev');

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index(Request $request)
+    public function show(Request $request)
     {
         if ($request->has('category')) {
             $products = Product::where('category_id', $request->category)->get();
@@ -18,6 +18,30 @@ class ProductController extends Controller
         }
         $categories = Category::all();
         return view('products.shop_products', compact('products', 'categories'));
+    }
+
+    public function index()
+    {
+        $this->middleware('admin');
+        $shops = Shop::all();
+        $products = Product::all();
+        $categories = Category::all();
+        return view('admin.products.index', compact('products', 'categories', 'shops'));
+    }
+
+    public function delete($id)
+    {
+        $this->middleware('admin');
+        $product = Product::findOrFail($id);
+        return view('admin.products.delete', compact('product'));
+    }
+
+    public function destroy($id)
+    {
+        $this->middleware('admin');
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect('/admin');
     }
 
     public function search(Request $request)

@@ -159,6 +159,20 @@
             color: #5263FF;
         }
 
+        .error {
+            color: white;
+            background-color: red;
+            position: fixed;
+            right: 0;
+            /* Для верхнего угла используйте 'top: 0;', для нижнего угла используйте 'bottom: 0;' */
+            top: 0;
+            padding: 20px;
+            z-index: 1000;
+            max-width: 300px;
+            border-radius: 15px;
+            margin: 10px;
+        }
+
         @media screen and (max-width: 768px) {
             .aside,
             .form {
@@ -223,6 +237,16 @@
     </style>
 </head>
 <body>
+
+@if ($errors->any())
+    <div class="error">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}></p>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <aside class="aside">
     <h1>Foodoo</h1>
     <iframe src="https://lottie.host/embed/5967b51a-a99c-4325-9fc4-84d26dc47a3f/DVGjwdW0iM.json"></iframe>

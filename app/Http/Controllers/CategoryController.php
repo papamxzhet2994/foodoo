@@ -7,10 +7,32 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function show()
     {
         $categories = Category::all();
         return view('components.categories', compact('categories'));
+    }
+
+    public function index()
+    {
+        $this->middleware('admin');
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
+    }
+
+    public function delete($id)
+    {
+        $this->middleware('admin');
+        $category = Category::findOrFail($id);
+        return view('admin.categories.delete', compact('category'));
+    }
+
+    public function destroy($id)
+    {
+        $this->middleware('admin');
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return redirect('/admin');
     }
 
     public function create()

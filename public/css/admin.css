@@ -97,6 +97,34 @@ header a:hover {
     border-left-color: #007BFF;
 }
 
+.accordion {
+    background-color: #fff;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    transition: 0.4s;
+    margin-top: 10px;
+}
+
+.active, .accordion:hover {
+    background-color: #fff;
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+i.fa-chevron-down, i.fa-chevron-up {
+    float: right;
+}
 
 .info {
     flex: 1;

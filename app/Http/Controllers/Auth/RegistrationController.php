@@ -20,15 +20,16 @@ class RegistrationController extends Controller
     {
         $data = $request->validated();
 
-        User::query()->create([
+        $user = User::query()->create([
             'last_name' => $data['last_name'],
             'first_name' => $data['first_name'],
             'email' => $data['email'],
+            'email_verified_at' => now(),
             'password' => Hash::make($data['password']),
         ]);
 
-        // event(new Registered($user));
+        event(new Registered($user));
 
-        return redirect()->route('login');
+        return redirect()->route('verification.notice');
     }
 }

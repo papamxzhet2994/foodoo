@@ -18,6 +18,30 @@ class RestaurantController extends Controller
         return view('layouts.indev');
     }
 
+    public function index()
+    {
+        $this->middleware('admin');
+        $restaurants = Restaurant::all();
+        return view('admin.restaurants.index', compact('restaurants'));
+    }
+
+    public function delete($id)
+    {
+        $this->middleware('admin');
+        $restaurant = Restaurant::findOrFail($id);
+        return view('admin.restaurants.delete', compact('restaurant'));
+    }
+
+    public function destroy($id)
+    {
+        $this->middleware('admin');
+        $restaurant = Restaurant::findOrFail($id);
+        $restaurant->delete();
+        return redirect('/admin');
+    }
+
+
+
     public function create()
     {
         $this->middleware('admin');

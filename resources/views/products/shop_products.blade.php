@@ -383,8 +383,6 @@
             height: 100px;
         }
 
-
-
         .cart img {
             width: 100px;
             height: 100px;
@@ -419,20 +417,19 @@
             display: none;
         }
 
-        .aside .accordion-toggle {
-            cursor: pointer;
-        }
-
         .aside .accordion-toggle::after {
+            display: block;
             float: right;
         }
 
         i.fas.fa-chevron-down {
             float: right;
+            display: block;
         }
 
         i.fas.fa-chevron-up {
             float: right;
+            display: block;
         }
     }
 </style>

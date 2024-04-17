@@ -159,6 +159,21 @@
             background-color: #f2f2f2;
             color: #5263FF;
         }
+
+        .error {
+            color: white;
+            background-color: red;
+            position: fixed;
+            right: 0;
+            top: 0;
+            padding: 50px;
+            z-index: 1000;
+            max-width: 300px;
+            border-radius: 15px;
+            margin: 10px;
+        }
+
+
         @media screen and (max-width: 768px) {
             .aside,
             .form {

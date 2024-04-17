@@ -23,6 +23,29 @@ class ShopController extends Controller
         return view('products.shop_products', compact('shop', 'categories', 'products'));
     }
 
+
+    public function index()
+    {
+        $this->middleware('admin');
+        $shops = Shop::all();
+        return view('admin.shops.index', compact('shops'));
+    }
+
+    public function delete($id)
+    {
+        $this->middleware('admin');
+        $shop = Shop::findOrFail($id);
+        return view('admin.shops.delete', compact('shop'));
+    }
+
+    public function destroy($id)
+    {
+        $this->middleware('admin');
+        $shop = Shop::findOrFail($id);
+        $shop->delete();
+        return redirect('/admin/shops');
+    }
+
     public function create()
     {
         $this->middleware('admin');
