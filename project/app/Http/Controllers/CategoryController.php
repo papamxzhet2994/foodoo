@@ -32,7 +32,7 @@ class CategoryController extends Controller
         $this->middleware('admin');
         $category = Category::findOrFail($id);
         $category->delete();
-        return redirect('/admin');
+        return redirect()->route('admin.categories.index');
     }
 
     public function create()

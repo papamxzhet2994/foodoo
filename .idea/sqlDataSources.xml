@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="fe683b89-0164-4bfa-947f-90eaa8b2d59c" name="FooDoo Mapping">
+      <data-sources db="4c6eaceb-0c61-4929-99cd-8a82922f8904" ddl="9d7faee4-b2ac-4983-8572-6512e619ad49" />
+      <scope>
+        <node kind="schema" qname="foodoo" />
+      </scope>
+    </mapping>
+    <mapping uuid="9049d686-ff39-4ca6-bd2e-a235d8cd39d8" name="FooDoo (DDL) Mapping">
+      <data-sources db="4c6eaceb-0c61-4929-99cd-8a82922f8904" ddl="4ae2cab0-f6ab-4eed-a6c7-58c3969fbcd6" />
+    </mapping>
+  </component>
+  <component name="SqlDataSourceStorage">
+    <option name="dataSources">
+      <list>
+        <State>
+          <option name="id" value="4ae2cab0-f6ab-4eed-a6c7-58c3969fbcd6" />
+          <option name="name" value="FooDoo (DDL)" />
+          <option name="dbmsName" value="MYSQL" />
+          <option name="urls">
+            <array>
+              <option value="file://$PROJECT_DIR$" />
+            </array>
+          </option>
+          <option name="outLayout" value="File per object by schema.groovy" />
+        </State>
+      </list>
+    </option>
+  </component>
+</project>
