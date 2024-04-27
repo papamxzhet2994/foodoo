@@ -29,6 +29,10 @@ Route::group(['middleware' => 'auth', 'middleware' => 'access:admin'], function 
     Route::get('/admin/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
     Route::post('/admin/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
     Route::delete('/admin/delete/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
+    Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
+    Route::post('/admin/edit/{id}', [AdminController::class, 'update'])->name('admin.update');
+    Route::get('/admin/take/{id}', [AdminController::class, 'take'])->name('admin.take');
+    Route::post('/admin/take/{id}', [AdminController::class, 'take'])->name('admin.take');
 
     // рестораны
     Route::get('/admin/restaurants/create', [RestaurantController::class, 'create'])->name('admin.restaurants.create');

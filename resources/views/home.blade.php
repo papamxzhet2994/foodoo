@@ -13,340 +13,31 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <title>FooDoo</title>
-    <style>
-        .shop-card {
-            display: inline-block;
-            width: 288px;
-            height: 146px;
-            margin: 10px;
-            max-height: 200px;
-            /*overflow: hidden;*/
-            transition: max-height 0.8s ease;
-        }
-
-        .shop-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .shop-card img:hover {
-            transform: scale(1.05);
-        }
-
-        .restaurants-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: flex-start;
-            margin-top: 20px;
-        }
-
-        .card {
-            background-color: #fff;
-            box-shadow: 10px 10px 40px 2px rgba(128, 128, 128, 0.4);
-            display: inline-block;
-            width: 375px;
-            border-radius: 10px;
-            margin: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-        }
-
-        .card .card-media img {
-            background-position: center;
-            background-size: cover;
-            height: 200px;
-            width: 100%;
-            object-fit: cover;
-            border-radius: 10px 10px 0 0;
-            position: relative;
-        }
-
-
-        .card .card-description {
-            padding: 10px;
-        }
-
-        .card .card-description .about-place {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .card .card-description .about-place .place-name {
-            font-weight: 600;
-            padding-bottom: 10px;
-            color: rgba(0, 0, 0, 0.87);
-        }
-
-        .card .card-description .about-place .place-speciality, .card .card-description .about-place .per-person {
-            font-size: 14px;
-            color: rgba(128, 128, 128, 0.97);
-        }
-
-        .card .card-description .about-place .rating {
-            font-size: 14px;
-            border-radius: 4px;
-            background-color: #0a6d0acc;
-            color: #fff;
-            font-weight: 700;
-            text-align: center;
-            padding: 2px 6px;
-            margin-bottom: 6px;
-            margin-left: 30px;
-        }
-
-        .shops-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 82.5%;
-            margin: 0 auto;
-        }
-
-        .container {
-            width: 91%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            margin-left: auto;
-        }
-
-        .show-all {
-            width: 91%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            margin-left: auto;
-        }
-
-        .show-all .button {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-weight: bold;
-            margin-right: 105px;
-        }
-
-        .show-all .button:hover {
-            background-color: #f2f2f2;
-            color: #5263FF;
-
-        }
-
-        .slider-buttons {
-            display: none;
-        }
-
-        .skeleton {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, #eee 8%, #ddd 18%, #eee 33%);
-            background-size: 800px 104px;
-            position: relative;
-            animation-duration: 1s;
-            animation-fill-mode: forwards;
-            animation-iteration-count: infinite;
-            animation-name: placeHolderShimmer;
-            animation-timing-function: linear;
-            border-radius: 15px;
-        }
-
-        @keyframes placeHolderShimmer {
-            0% {background-position: -468px 0}
-            100% {background-position: 468px 0}
-        }
-
-
-        @media screen and (max-width: 768px) {
-            .show-all button {
-                display: none;
-            }
-
-            /* Добавьте этот CSS в ваш стилевой файл для стилизации слайдера */
-            .slider {
-                display: flex;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                scroll-behavior: smooth;
-                -webkit-overflow-scrolling: touch;
-            }
-
-
-            .shop-card {
-                scroll-snap-align: center;
-                flex: 0 0 auto;
-                width: 300px; /* Размер активной карточки */
-                margin: 0 20px; /* Отступы между карточками */
-                height: 144px;
-                transition: transform 0.5s ease-in-out;
-            }
-
-            .shop-card img {
-                width: 100%;
-                border-radius: 10px; /* Скругленные углы для изображений */
-                height: 100%;
-                object-fit: cover;
-                object-position: center;
-                transition: transform 0.5s ease-in-out;
-            }
-
-            .shop-card.active {
-                transform: scale(1);
-            }
-
-            /* Стили для уменьшенных карточек */
-            .shop-card:not(.active) {
-                transform: scale(0.8);
-            }
-
-
-            .slider::-webkit-scrollbar {
-                display: none;
-            }
-
-
-            .slider-buttons {
-                display: flex; /* Используйте flex для лучшего выравнивания */
-                justify-content: center; /* Центрирование кнопок внутри контейнера */
-                align-items: center; /* Вертикальное выравнивание */
-                margin: 20px auto;
-                width: 100%;
-            }
-
-            .slider-buttons button {
-                background-color: #fff;
-                border: 2px solid #BD4932;
-                color: #BD4932;
-                font-size: 16px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                font-weight: bold;
-                border-radius: 50%;
-                width: 50px;
-                height: 50px;
-                margin: 0 10px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                outline: none;
-            }
-
-            .slider-buttons button:hover,
-            .slider-buttons button:focus {
-                background-color: #BD4932;
-                color: #fff;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            }
-
-
-            .show-all-shops .shop-card {
-                max-height: none !important;
-            }
-
-            h1 {
-                margin-left: 0;
-                margin-right: 25px;
-                font-size: clamp(1.5rem, 5vw, 2.5rem);
-            }
-
-            .show-all h1 {
-                margin-left: 0;
-                margin-right: 25px;
-                font-size: clamp(1.5rem, 5vw, 2.5rem);
-            }
-
-            .restaurants-container {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                align-items: flex-start;
-                margin-top: 10px;
-                margin-bottom: 200px;
-            }
-
-            .card-wrapper {
-                width: calc(50% - 20px); /* Вычисление ширины для двух карточек в строке с учетом отступов */
-                margin-right: 20px; /* Отступы между карточками */
-            }
-
-            .cards-container{
-                margin: 0 ;
-            }
-            .card {
-                width: 100%;
-                box-shadow: 5px 5px 20px 1px rgba(128, 128, 128, 0.2);
-                display: flex;
-                flex-direction: column;
-
-            }
-
-            .card:hover {
-                transform: none;
-            }
-
-            .card .card-media img {
-                height: auto;
-            }
-
-            .card .card-description {
-                padding: 8px;
-            }
-
-            .card .card-description .about-place {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .card .card-description .about-place .place-name,
-            .card .card-description .about-place .place-speciality {
-                font-size: 16px;
-            }
-
-            .card .card-description .about-place .rating {
-                font-size: 16px;
-                margin-left: 0;
-                margin-top: 10px;
-            }
-
-            .card-wrapper a {
-                text-decoration: none;
-            }
-        }
-    </style>
 </head>
 <body>
 @include('layouts.header')
 <h1 class="show-all">Акции и предложения</h1>
 <div class="container">
-    <h3>Тут пока что ничего нет</h3>
-    {{--    @if ($promotions->count() > 0)--}}
-    {{--    @foreach($promotions as $promotion)--}}
-    {{--        <a href="/promotions/{{ $promotion->id }}">--}}
-    {{--            <div class="card">--}}
-    {{--                <img src="{{$promotion->image}}" alt="{{ $promotion->name }}">--}}
-    {{--                <h2>{{$promotion->name}}</h2>--}}
-    {{--                <h3>{{$promotion->description}}</h3>--}}
-    {{--            </div>--}}
-    {{--        </a>--}}
-    {{--    @endforeach--}}
-    {{--    @else--}}
-    {{--        <h1>Акции и предложения отсутствуют</h1>--}}
-    {{--    @endif--}}
+    <div class="promotions-container">
+        @if ($promotions->count() > 0)
+        @foreach($promotions as $promotion)
+            <a href="/promotions/{{ $promotion->id }}">
+                <div class="promotions">
+                <div class="promotion-card">
+                    <img src="{{$promotion->image}}" class="skeleton">
+                    <div class="promotion-name">
+                        <h2>{{$promotion->name}}</h2>
+                    </div>
+                </div>
+                </div>
+            </a>
+        @endforeach
+        @else
+            <h3>Тут пока что ничего нет</h3>
+        @endif
+    </div>
 </div>
 <h1 class="show-all">Магазины</h1>
 <div class="show-all">
@@ -355,13 +46,17 @@
 </div>
 <div class="shops-container{{ $isMobile ? ' show-all-shops' : '' }}">
     <div class="slider">
+@if ($shops->count() > 0)
     @foreach($shops as $shop)
         <a href="/shops/{{ $shop->id }}">
             <div class="shop-card">
-                <img src="{{ asset('storage/' . $shop->image) }}" class="skeleton" >
+                <img src="{{ asset('storage/' . $shop->image) }}" class="skeleton">
             </div>
         </a>
     @endforeach
+@else
+    <h3>Тут пока что ничего нет</h3>
+@endif
     </div>
 </div>
 <div class="slider-buttons">
@@ -371,6 +66,7 @@
 
 <h1 class="show-all">Рестораны</h1>
 <div class="restaurants-container">
+@if ($restaurants->count() > 0)
     @foreach($restaurants as $restaurant)
         <div class="card-wrapper">
         <a href="/restaurants/{{ $restaurant->id }}">
@@ -395,6 +91,9 @@
         </a>
         </div>
     @endforeach
+@else
+    <h3>Тут пока что ничего нет</h3>
+@endif
 </div>
 @include('layouts.footer')
 <script>

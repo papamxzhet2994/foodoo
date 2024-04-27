@@ -79,7 +79,6 @@
                 font-size: 16px;
             }
 
-
         }
 
     </style>
@@ -95,10 +94,7 @@
         <p>Новая ссылка для подтверждения была отправлена на адрес электронной почты, указанный при регистрации.</p>
     @endif
 
-    <form method="POST" action="{{ route('verification.resend') }}">
-        @csrf
-        <button type="submit">Отправить новую ссылку для подтверждения</button>
-    </form>
+    <a href="{{ route('login') }}"><button type="button">Войти в аккаунт</button></a>
 
 
 </div>

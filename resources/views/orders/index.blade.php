@@ -11,188 +11,8 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <link href="{{ asset('css/order.css') }}" rel="stylesheet">
     <title>Оформление заказа</title>
-    <style>
-        body {
-            font-family: Roboto, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        form {
-            margin-top: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #666;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 16px;
-            resize: vertical;
-        }
-
-        input[type="submit"] {
-            background-color: #BD4932;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 15px 30px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #9e3a26;
-        }
-
-        .note {
-            font-size: 14px;
-            color: #888;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        /* Стили для списка товаров в корзине */
-        .cart-list {
-            margin-top: 20px;
-            border-top: 1px solid #ccc;
-            padding-top: 20px;
-        }
-
-        .cart-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .cart-item img {
-            max-width: 100px;
-            margin-right: 20px;
-            border-radius: 10px;
-        }
-
-        .cart-item-info {
-            flex-grow: 1;
-        }
-
-        .cart-item-info h3 {
-            margin: 0 0 10px;
-            color: #333;
-            font-size: 20px;
-        }
-
-        .cart-item-info p {
-            margin: 0;
-            color: #666;
-            font-size: 16px;
-        }
-
-        .remove-from-cart {
-            background-color: #BD4932;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-
-        .remove-from-cart:hover {
-            background-color: #9e3a26;
-        }
-
-        .empty-cart {
-            text-align: center;
-            color: #888;
-            font-size: 18px;
-        }
-
-        .back-link {
-            display: block;
-            margin-bottom: 20px;
-            color: #333;
-            text-decoration: none;
-            font-size: 18px;
-            transition: color 0.3s ease;
-            font-family: Roboto, sans-serif;
-        }
-
-        .back-link:hover {
-            color: #5263FF;
-        }
-
-        @media screen and (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                max-width: 100%;
-                margin: 10px auto;
-                padding: 10px;
-            }
-
-            input[type="text"],
-            input[type="email"],
-            textarea {
-                font-size: 14px;
-            }
-
-            input[type="submit"] {
-                padding: 10px 20px;
-                font-size: 16px;
-            }
-
-            .cart-item {
-                flex-direction: column;
-            }
-
-            .cart-item img {
-                max-width: 100%;
-                margin-right: 0;
-                margin-bottom: 20px;
-            }
-
-            .back-link {
-                font-size: 16px;
-            }
-        }
-
-    </style>
 </head>
 <body>
 
@@ -220,9 +40,18 @@
             @endforeach
         @else
             <p class="empty-cart">Корзина пуста</p>
-            <a href="/" class="back-link">Вернуться к покупкам</a>
+            <a href="/" class="back-link" style="text-align: center">Вернуться к покупкам</a>
         @endif
     </div>
+
+    <form action="{{ route('apply.promocode') }}" method="POST" id="promo-form">
+        @csrf
+        <label for="promocode">Промокод:</label>
+        <div class="promocode">
+            <input type="text" id="promocode" name="promocode" disabled>
+            <button class="access-promo" type="submit" disabled>Применить</button>
+        </div>
+    </form>
 
     <form action="{{ route('orders.store') }}" method="POST">
         @csrf
@@ -245,6 +74,10 @@
         <label for="phone">Телефон:</label>
         <input type="text" id="phone" name="phone" required>
 
+        <div class="total">
+            <span>Итого:</span>
+            <span>{{ $total }} ₽</span>
+        </div>
         <input type="submit" value="Перейти к оплате">
 
         <p class="note">Нажимая кнопку "Оформить заказ", вы соглашаетесь с нашими <a href="#">условиями использования</a>.</p>
@@ -279,4 +112,55 @@
     }
 </script>
 </body>
+<script>
+    document.getElementById('phone').addEventListener('input', function() {
+        this.value = this.value.replace(/[^\d]/g, '');
+        if (this.value.length < 10) {
+            this.value = this.value.slice(0, 10);
+        }
+
+        if (this.value.length === 10) {
+            this.value = `+7${this.value}`;
+        }
+    });
+
+
+    {{--document.addEventListener('DOMContentLoaded', function() {--}}
+    {{--    const promoForm = document.getElementById('promo-form');--}}
+
+    {{--    promoForm.addEventListener('submit', function(event) {--}}
+    {{--        event.preventDefault(); // Предотвращаем отправку формы--}}
+
+    {{--        const formData = new FormData(promoForm);--}}
+    {{--        const promocode = formData.get('promocode');--}}
+
+    {{--        // Отправляем запрос на сервер для применения промокода--}}
+    {{--        fetch('{{ route("apply.promocode") }}', {--}}
+    {{--            method: 'POST',--}}
+    {{--            headers: {--}}
+    {{--                'X-CSRF-TOKEN': '{{ csrf_token() }}',--}}
+    {{--                'Content-Type': 'application/json',--}}
+    {{--                'Accept': 'application/json',--}}
+
+    {{--            },--}}
+    {{--            body: JSON.stringify({ promocode: promocode }),--}}
+    {{--        })--}}
+    {{--            .then(response => response.json())--}}
+    {{--            .then(data => {--}}
+    {{--                if (data.success) {--}}
+    {{--                    // Если промокод успешно применен, обновляем отображение общей стоимости--}}
+    {{--                    const totalElement = document.querySelector('.total span:last-child');--}}
+    {{--                    totalElement.textContent = data.total_price + ' ₽';--}}
+    {{--                    alert(data.message); // Можно заменить на более стилизованное уведомление--}}
+    {{--                } else {--}}
+    {{--                    alert(data.error); // Можно заменить на более стилизованное уведомление--}}
+    {{--                }--}}
+    {{--            })--}}
+    {{--            .catch(error => {--}}
+    {{--                console.error('Ошибка при применении промокода:', error);--}}
+    {{--                alert('Ошибка при применении промокода. Пожалуйста, попробуйте еще раз.');--}}
+    {{--            });--}}
+    {{--    });--}}
+    {{--});--}}
+</script>
 </html>

@@ -52,7 +52,6 @@ class ProductController extends Controller
 
         $shop = Shop::findOrFail($shopId);
 
-        // Ищем продукты по названию и привязанным категориям
         $productsQuery = Product::where('shop_id', $shopId)
             ->where(function ($query) use ($searchTerm) {
                 $query->where('name', 'like', "%$searchTerm%")
@@ -64,7 +63,6 @@ class ProductController extends Controller
         }
 
         $products = $productsQuery->get();
-
         $categories = Category::all();
 
         return view('products.shop_products', compact('products', 'shop', 'categories'));
@@ -127,7 +125,7 @@ class ProductController extends Controller
 
     public function uploadPhoto(Request $request)
     {
-        $path = $request->file('image')->store('images/products/', 'public');
+        $path = $request->file('image')->store('images/products', 'public');
         return $path;
     }
 }

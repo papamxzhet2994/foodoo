@@ -19,9 +19,11 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', 8, 2);
             $table->unsignedBigInteger('restaurant_id');
+            $table->unsignedBigInteger('restaurant_category');
             $table->timestamps();
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
+            $table->foreign('restaurant_category')->references('id')->on('restaurant_categories')->onDelete('cascade');
         });
     }
 

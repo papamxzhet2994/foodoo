@@ -144,6 +144,28 @@
         display: none;
     }
 
+    .cart {
+        cursor: pointer;
+        margin-left: 50px;
+        font-size: 30px;
+        color: #000;
+    }
+
+    .cartItemCount-container {
+        position: relative;
+    }
+
+    .cartItemCount {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: red;
+        color: #fff;
+        padding: 2px 5px;
+        border-radius: 50%;
+        font-size: 12px;
+    }
+
     @media screen and (max-width: 768px) {
         .right-section {
             margin-left: auto;
@@ -224,6 +246,9 @@
             padding: 10px;
             border: none;
         }
+        .cartItemCount-container {
+            display: none;
+        }
     }
 </style>
 <body>
@@ -245,7 +270,10 @@
                     <ul id="suggestions-list"></ul>
                 </div>
             </div>
-
+{{--        <div class="cartItemCount-container">--}}
+{{--            <a class="cart" href="{{ route('orders.index') }}"><i class="fas fa-shopping-cart"></i></a>--}}
+{{--            <div class="cartItemCount">{{ $cartItemCount }}</div>--}}
+{{--        </div>--}}
             <div class="profile">
                 <a href="{{ route('profile') }}"><img src="{{asset('assets/userProfile.png')}}" alt="Profile"></a>
             </div>

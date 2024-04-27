@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dish;
 use App\Models\Restaurant;
+use App\Models\RestaurantCategory;
 use Illuminate\Http\Request;
 
 class DishController extends Controller
@@ -17,7 +18,8 @@ class DishController extends Controller
     {
         $this->middleware('admin');
         $restaurants = Restaurant::all();
-        return view('admin.dishes.create', compact('restaurants'));
+        $categories = RestaurantCategory::all();
+        return view('admin.dishes.create', compact('restaurants', 'categories'));
     }
 
     public function index()
@@ -51,6 +53,7 @@ class DishController extends Controller
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:4096',
             'restaurant_id' => 'required',
+            'restaurant_category' => 'required',
         ]);
 
 
@@ -60,6 +63,7 @@ class DishController extends Controller
         $dish->description = $request->description;
         $dish->image = $this->uploadPhoto($request);
         $dish->restaurant_id = $request->restaurant_id;
+        $dish->restaurant_category = $request->restaurant_category;
         $dish->save();
         return redirect('/admin');
     }

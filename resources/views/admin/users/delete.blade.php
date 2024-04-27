@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 @include('admin.layouts.header')
     <form method="POST" action="{{ route('admin.delete', $user->id) }}" class="delete-form">

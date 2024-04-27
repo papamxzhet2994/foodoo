@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dish;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -22,7 +23,7 @@ class CartController extends Controller
                 "quantity" => 1,
                 "price" => $product->price,
                 "image" => $product->image,
-                "weight" => $product->weight
+                "weight" => $product->weight,
             ];
         }
 
@@ -40,7 +41,8 @@ class CartController extends Controller
             session()->put('cart', $cart);
         }
 
-        return redirect()->back()->with('success', 'Товар удален из корзины');
+        session()->flash('success', 'Product removed from cart!');
+        return redirect()->back();
     }
 
     public function total(): float|int

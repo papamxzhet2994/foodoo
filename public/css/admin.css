@@ -319,3 +319,14 @@ input[type="file"]::file-selector-button:hover {
 .delete-form span {
     font-weight: bold;
 }
+
+.edit {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease-in-out;
+}
+
+.edit:hover {
+    color: #0056b3;
+}

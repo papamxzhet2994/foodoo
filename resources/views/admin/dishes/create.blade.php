@@ -31,6 +31,14 @@
                     @endforeach
                 </select>
             </div>
+            <div>
+                <label for="restaurant_category">Категории</label>
+                <select name="restaurant_category" id="restaurant_category">
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit">Создать</button>
         </form>
     </div>

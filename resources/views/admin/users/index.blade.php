@@ -10,8 +10,9 @@
             <tr>
                 <th>Имя</th>
                 <th>Email</th>
-                <th>Аккаунт создан в:</th>
+                <th>Аккаунт создан в</th>
                 <th>Администратор</th>
+                <th>Аккаунт подтвержден</th>
                 <th>Действия</th>
             </tr>
             </thead>
@@ -22,6 +23,8 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->created_at }}</td>
                     <td>{{ $user->is_admin ? 'Да' : 'Нет' }}</td>
+                    <td>{{ $user->email_verified_at ? 'Да' : 'Нет' }}</td>
+                    <td><a href="{{ route('admin.edit', $user->id) }}" class="edit">Редактировать</a></td>
                     <td><a href="{{ route('admin.delete', $user->id) }}" class="delete">Удалить</a></td>
                 </tr>
             @endforeach

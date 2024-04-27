@@ -21,7 +21,7 @@ class AuthController extends Controller
         $data = $request->validated();
 
         if (!Auth::attempt($data)) {
-            return back()->withErrors('Invalid data');
+            return back()->withErrors('Неверный логин или пароль');
         }
 
         $request->session()->regenerate();

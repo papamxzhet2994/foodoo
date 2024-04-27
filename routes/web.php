@@ -6,6 +6,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PromotionsController;
+use App\Http\Controllers\RestaurantCartController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\VerificationController;
@@ -31,13 +33,17 @@ Route::get('/shops/{id}', [ShopController::class, 'show'])->name('shops.show');
 
 Route::get('/categories', [CategoryController::class, 'show'])->name('categories.index');
 
+Route::get('/promotions/{id}', [PromotionsController::class, 'index'])->name('promotions.index');
+Route::post('/apply-promocode', [PromotionsController::class, 'applyPromocode'])->name('apply.promocode');
+
 Route::get('/products', [ProductController::class, 'show'])->name('products.shop_products');
 Route::get('/products/{product}', [ProductController::class, 'search'])->name('products.search');
 Route::get('/products/shop/{shop}/category/{category}', [ProductController::class, 'showByCategory'])->name('products');
 Route::get('/products/reset-categories', [ProductController::class, 'resetCategory'])->name('products.shop_products.reset-categories');
 
-Route::get('add-to-cart/{id}', [CartController::class, 'addToCart']);
-Route::get('remove-from-cart/{id}', [CartController::class, 'removeFromCart']);
+Route::get('add-to-cart/{product_id}', [CartController::class, 'addToCart']);
+Route::get('add-to-cart/{dish_id}', [RestaurantCartController::class, 'addToCartFromRestaurant']);
+Route::get('remove-from-cart/{product_id}', [CartController::class, 'removeFromCart']);
 
 Route::get('search', [SearchController::class, 'search'])->name('search');
 Route::get('/search-suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');
@@ -49,8 +55,6 @@ Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 Route::get('/orders/confirm', [OrderController::class, 'confirm'])->name('orders.confirm');
 Route::get('/orders/{id}/info', [OrderController::class, 'showInfo'])->name('orders.info');
 
-Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
 
 Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');

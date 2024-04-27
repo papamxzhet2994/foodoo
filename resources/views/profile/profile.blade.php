@@ -38,6 +38,10 @@
                 <h1 class="username">{{ auth()->user()->last_name . ' ' . auth()->user()->first_name }}</h1>
                 <p class="email">{{ auth()->user()->email }}</p>
                 <p class="email">Подтвержденный аккаунт: {{ auth()->user()->email_verified_at ? 'Да' : 'Нет' }}</p>
+                @if (!auth()->user()->email_verified_at)
+                    <a href="#" onclick="resendVerificationEmail(event)" class="more">Подтвердить почту</a>
+                    <div id="confirmationMessage" class="message hidden" style="color: green; font-weight: bold; margin-top: 10px; margin-bottom: 10px; margin-left: 10px">Письмо отправлено!</div>
+                @endif
                 <div class="registration-date">
                     <p>Дата регистрации: {{ auth()->user()->created_at->format('d.m.Y') }}</p>
                 </div>
@@ -107,6 +111,27 @@
             section.classList.add('hidden');
         });
     }
+
+    function resendVerificationEmail(event) {
+        event.preventDefault();
+        fetch("{{ route('verification.resend') }}", {
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('confirmationMessage').classList.remove('hidden');
+                } else {
+                    console.error('Ошибка при отправке письма');
+                }
+            })
+            .catch(error => {
+                console.error('Произошла ошибка:', error);
+            });
+    }
+
 </script>
 
 </body>

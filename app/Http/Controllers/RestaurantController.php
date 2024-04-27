@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dish;
 use App\Models\Restaurant;
+use App\Models\RestaurantCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,8 +14,10 @@ class RestaurantController extends Controller
     {
 //        $restaurant = Restaurant::findOrFail($id);
 //        $dishes = Dish::where('restaurant_id', $id)->get();
+//        $categories = RestaurantCategory::all();
+//        $cart = session()->get('cart', []);
 //
-//        return view('restaurant_dishes', compact('restaurant', 'dishes'));
+//        return view('restaurant_dishes', compact('restaurant', 'dishes', 'categories', 'cart'));
         return view('layouts.indev');
     }
 

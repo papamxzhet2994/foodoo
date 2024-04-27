@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
@@ -26,6 +27,14 @@ class VerificationController extends Controller
             throw new AuthorizationException;
         }
 
+        if ($user->hasVerifiedEmail()) {
+            if (Auth::check()) {
+                return redirect('/');
+            } else {
+                return redirect('login')->with('verified', true);
+            }
+        }
+
         if ($user->markEmailAsVerified()) {
             event(new Verified($user));
         }
@@ -33,14 +42,15 @@ class VerificationController extends Controller
         return redirect('login')->with('verified', true);
     }
 
-//    public function resend(Request $request)
-//    {
-//        if ($request->user()->hasVerifiedEmail()) {
-//            return redirect('/email/verify');
-//        }
-//
-//        $request->user()->sendEmailVerificationNotification();
-//
-//        return back()->with('resent', true);
-//    }
+
+    public function resend(Request $request)
+    {
+        if ($request->user()->hasVerifiedEmail()) {
+            return redirect('login')->with('resent', true);
+        }
+
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('resent', true);
+    }
 }

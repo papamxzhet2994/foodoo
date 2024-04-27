@@ -54,7 +54,6 @@
         .back-link:hover {
             color: #9e3a26;
         }
-
     </style>
 </head>
 <body>
@@ -63,7 +62,10 @@
 {{--    <iframe src="https://lottie.host/embed/df7a0181-07eb-4d20-a81d-5fa5bae08f15/VSSpWi5i0G.json"></iframe>--}}
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <dotlottie-player src="https://lottie.host/df7a0181-07eb-4d20-a81d-5fa5bae08f15/VSSpWi5i0G.json" background="transparent" speed="1" style="width: 300px; height: 300px; margin: 0 auto" autoplay></dotlottie-player>
-    <p class="confirmation-message">Ваш заказ успешно оформлен. Спасибо за покупку!</p>
+    <h2 class="confirmation-message">Ваш заказ успешно оформлен.</h2>
+    <p class="confirmation-message">
+        <br>Курьер свяжется с вами в ближайшее время.
+        <br>Спасибо за покупку!</p>
     <a href="/" class="back-link">Вернуться на главную страницу</a>
 </div>
 </body>

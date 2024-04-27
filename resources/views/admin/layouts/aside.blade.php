@@ -3,7 +3,7 @@
     <aside class="actions">
         <h2>Действия</h2>
         <div class="accordion">
-            <h3 onclick="toggleAccordion(this)">Пользователи <i class="fas fa-chevron-down"></i></h3>
+            <h3>Пользователи <i class="fas fa-chevron-down"></i></h3>
             <div class="panel">
                 <a href="{{ route('admin') }}">Список пользователей</a>
                 <a href="{{ route('admin.create') }}">Создать пользователя</a>
@@ -11,7 +11,7 @@
         </div>
 
         <div class="accordion">
-            <h3 onclick="toggleAccordion(this)">Магазины <i class="fas fa-chevron-down"></i></h3>
+            <h3>Магазины <i class="fas fa-chevron-down"></i></h3>
             <div class="panel">
                 <a href="{{ route('admin.shops.index') }}">Список магазинов</a>
                 <a href="{{ route('admin.shops.create') }}">Добавить магазин</a>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="accordion">
-            <h3 onclick="toggleAccordion(this)">Категории <i class="fas fa-chevron-down"></i></h3>
+            <h3>Категории <i class="fas fa-chevron-down"></i></h3>
             <div class="panel">
                 <a href="{{ route('admin.categories.index') }}">Список категорий</a>
                 <a href="{{ route('admin.categories.create') }}">Добавить категорию</a>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="accordion">
-            <h3 onclick="toggleAccordion(this)">Товары <i class="fas fa-chevron-down"></i></h3>
+            <h3>Товары <i class="fas fa-chevron-down"></i></h3>
             <div class="panel">
                 <a href="{{ route('admin.products.index') }}">Список товаров</a>
                 <a href="{{ route('admin.products.create') }}">Добавить товар</a>
@@ -35,7 +35,7 @@
         </div>
 
         <div class="accordion">
-            <h3 onclick="toggleAccordion(this)">Рестораны <i class="fas fa-chevron-down"></i></h3>
+            <h3>Рестораны <i class="fas fa-chevron-down"></i></h3>
             <div class="panel">
                 <a href="{{ route('admin.restaurants.index') }}">Список ресторанов</a>
                 <a href="{{ route('admin.restaurants.create') }}">Добавить ресторан</a>
@@ -43,7 +43,7 @@
         </div>
 
         <div class="accordion">
-            <h3 onclick="toggleAccordion(this)">Блюда <i class="fas fa-chevron-down"></i></h3>
+            <h3>Блюда <i class="fas fa-chevron-down"></i></h3>
             <div class="panel">
                 <a href="{{ route('admin.dishes.index') }}">Список блюд</a>
                 <a href="{{ route('admin.dishes.create') }}">Добавить блюдо</a>

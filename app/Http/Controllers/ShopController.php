@@ -20,7 +20,13 @@ class ShopController extends Controller
         $shop = Shop::findOrFail($id);
         $products = $shop->products;
         $categories = Category::all();
-        return view('products.shop_products', compact('shop', 'categories', 'products'));
+        $cartItemCount = 0;
+
+
+        if (session()->has('cart')) {
+            $cartItemCount = count(session()->get('cart'));
+        }
+        return view('products.shop_products', compact('shop', 'categories', 'products'), ['cartItemCount' => $cartItemCount]);
     }
 
 
