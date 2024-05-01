@@ -211,6 +211,18 @@
 }
 
 
+.rating {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #0a6d0acc;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    padding: 2px 6px;
+    margin-bottom: 6px;
+    margin-left: 30px;
+}
 
 
 @media screen and (max-width: 768px) {

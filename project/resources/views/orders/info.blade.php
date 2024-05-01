@@ -104,6 +104,27 @@
             color: #5263FF;
         }
 
+        .review {
+            font-size: 16px;
+            color: #4a5568;
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: inline-block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-family: Roboto, sans-serif;
+        }
+
+        .review i {
+            margin-left: 15px;
+        }
+
+        .review:hover {
+            color: #5263FF;
+        }
+
         @media screen and (max-width: 768px) {
             body {
                 padding: 10px;
@@ -145,6 +166,7 @@
     <div class="section">
         <h2>Детали заказа</h2>
         <p>Дата заказа: {{ $order->created_at }}</p>
+        <a href="{{ route('reviews.create') }}" class="review">Оставить отзыв <i class="fas fa-chevron-right"></i></a>
     </div>
     <div class="section">
         <h2>Дополнительная информация</h2>
@@ -161,7 +183,7 @@
             @endforeach
         </ul>
     </div>
-    <div class="total-price">Общая стоимость заказа: {{ $totalPrice }} руб.</div>
+    <div class="total-price">Общая стоимость заказа: {{ $order->total }} руб.</div>
 </div>
 
 </body>

@@ -63,7 +63,7 @@
                         <div class="order">
                             <h3>Заказ №{{ $order->id }}</h3>
                             <p>Дата: {{ $order->created_at->format('d.m.Y') }}</p>
-                            <p>Общая стоимость: {{ $order->total_price }} ₽</p>
+                            <p>Общая стоимость: {{ $order->total }} ₽</p>
                             <a href="{{ route('orders.info', $order->id) }}" class="more">Подробнее</a>
                         </div>
                     @endforeach

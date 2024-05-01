@@ -1,0 +1,149 @@
+body {
+    font-family: Roboto, sans-serif;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+form {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.reviews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+    margin: 0 auto;
+    
+}
+
+.review {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.review h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.review p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+}
+
+.rating i {
+    color: #ffc107;
+}
+
+.rating p {
+    margin-left: 0.5rem;
+}
+
+img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+
+.back-link {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #333;
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.back-link i {
+    margin-right: 5px;
+}
+
+.back-link:hover {
+    color: #5263FF;
+}
+
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+form label {
+    margin-top: 10px;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+
+form input[type="text"],
+form input[type="file"],
+form input[type="number"],
+form textarea {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 20px;
+    color: #333;
+    resize: vertical;
+}
+
+form button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #5263FF;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+form button:hover {
+    background-color: #3a47c0;
+}
+
+form input[type="file"]::file-selector-button {
+    background-color: #5263FF;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="file"]::file-selector-button:hover {
+    background-color: #3a47c0;
+}
+

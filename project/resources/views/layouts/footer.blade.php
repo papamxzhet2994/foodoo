@@ -187,7 +187,7 @@
                 <li><a href="#">О нас</a></li>
                 <li><a href="#">Контакты</a></li>
                 <li><a href="#">Политика конфиденциальности</a></li>
-                <li><a href="#">Условия использования</a></li>
+                <li><a href="{{  route('reviews.show')}}">Отзывы</a></li>
             </ul>
         </div>
         <div class="footer-social">

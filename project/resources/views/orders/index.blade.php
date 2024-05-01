@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -11,6 +13,7 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('css/order.css') }}" rel="stylesheet">
     <title>Оформление заказа</title>
 </head>
@@ -40,6 +43,7 @@
             @endforeach
         @else
             <p class="empty-cart">Корзина пуста</p>
+            <iframe src="https://lottie.host/embed/f4a49303-1c90-4763-86d6-301be7eac2ac/r6xguvQb3k.json" frameborder="0" width="300" height="300" style="margin: 0 auto; display: block;"></iframe>
             <a href="/" class="back-link" style="text-align: center">Вернуться к покупкам</a>
         @endif
     </div>
@@ -48,13 +52,14 @@
         @csrf
         <label for="promocode">Промокод:</label>
         <div class="promocode">
-            <input type="text" id="promocode" name="promocode" disabled>
-            <button class="access-promo" type="submit" disabled>Применить</button>
+            <input type="text" id="promocode" name="promocode">
+            <button class="access-promo" type="button" onclick="applyPromocode()">Применить</button>
         </div>
     </form>
 
     <form action="{{ route('orders.store') }}" method="POST">
         @csrf
+{{--        <input type="hidden" name="discount_amount" value="{{ $discountAmount }}">--}}
         <label for="name">Имя:</label>
         @if(auth()->user())
             <h4>{{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</h4>
@@ -76,10 +81,18 @@
 
         <div class="total">
             <span>Итого:</span>
-            <span>{{ $total }} ₽</span>
+            <span>{{ $total }} руб.</span>
         </div>
-        <input type="submit" value="Перейти к оплате">
 
+        <div class="total">
+            <input type="hidden" name="total" value="{{ $total }}">
+        </div>
+        @if (count($products) > 0)
+            <input type="submit" value="Оформить заказ">
+        @else
+
+            <a href="/" class="back-link" style="text-align: center">Вернуться к покупкам</a>
+        @endif
         <p class="note">Нажимая кнопку "Оформить заказ", вы соглашаетесь с нашими <a href="#">условиями использования</a>.</p>
     </form>
 </div>
@@ -110,7 +123,20 @@
 
         myMap.geoObjects.add(myPlacemark);
     }
+
 </script>
+<script>
+    function getAddressFromCoords(coords) {
+        fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=ваш_ключ&format=json&geocode=${coords}`)
+            .then(response => response.json())
+            .then(data => {
+                const address = data.response.GeoObjectCollection.featureMember[0].GeoObject.name;
+                document.getElementById('address').value = address;
+            })
+            .catch(error => console.error('Error getting address from coordinates:', error));
+    }
+</script>
+
 </body>
 <script>
     document.getElementById('phone').addEventListener('input', function() {
@@ -125,42 +151,65 @@
     });
 
 
-    {{--document.addEventListener('DOMContentLoaded', function() {--}}
-    {{--    const promoForm = document.getElementById('promo-form');--}}
+    function applyPromocode() {
+        const promocodeInput = document.getElementById('promocode');
+        const enteredPromocode = promocodeInput.value.trim();
 
-    {{--    promoForm.addEventListener('submit', function(event) {--}}
-    {{--        event.preventDefault(); // Предотвращаем отправку формы--}}
+        if (!enteredPromocode) {
+            Toastify({
+                text: 'Пожалуйста, введите промокод',
+                duration: 3000,
+                gravity: 'bottom',
+                backgroundColor: 'linear-gradient(to right, #ff416c, #ff4b2b)',
+            }).showToast();
+            return;
+        }
 
-    {{--        const formData = new FormData(promoForm);--}}
-    {{--        const promocode = formData.get('promocode');--}}
+        fetch('/apply-promocode', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ promocode: enteredPromocode })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Toastify({
+                        text: 'Промокод применен! Общая сумма обновлена.',
+                        duration: 3000,
+                        gravity: 'bottom',
+                        backgroundColor: 'linear-gradient(to right, #00b09b, #96c93d)',
+                    }).showToast();
 
-    {{--        // Отправляем запрос на сервер для применения промокода--}}
-    {{--        fetch('{{ route("apply.promocode") }}', {--}}
-    {{--            method: 'POST',--}}
-    {{--            headers: {--}}
-    {{--                'X-CSRF-TOKEN': '{{ csrf_token() }}',--}}
-    {{--                'Content-Type': 'application/json',--}}
-    {{--                'Accept': 'application/json',--}}
+                    const originalTotal = parseFloat(document.querySelector('.total span:last-child').textContent);
+                    const discountAmount = data.discount_amount;
+                    const discountedTotal = originalTotal - discountAmount;
+                    document.querySelector('.total span:last-child').textContent = discountedTotal.toFixed(2) + ' ₽';
 
-    {{--            },--}}
-    {{--            body: JSON.stringify({ promocode: promocode }),--}}
-    {{--        })--}}
-    {{--            .then(response => response.json())--}}
-    {{--            .then(data => {--}}
-    {{--                if (data.success) {--}}
-    {{--                    // Если промокод успешно применен, обновляем отображение общей стоимости--}}
-    {{--                    const totalElement = document.querySelector('.total span:last-child');--}}
-    {{--                    totalElement.textContent = data.total_price + ' ₽';--}}
-    {{--                    alert(data.message); // Можно заменить на более стилизованное уведомление--}}
-    {{--                } else {--}}
-    {{--                    alert(data.error); // Можно заменить на более стилизованное уведомление--}}
-    {{--                }--}}
-    {{--            })--}}
-    {{--            .catch(error => {--}}
-    {{--                console.error('Ошибка при применении промокода:', error);--}}
-    {{--                alert('Ошибка при применении промокода. Пожалуйста, попробуйте еще раз.');--}}
-    {{--            });--}}
-    {{--    });--}}
-    {{--});--}}
+                    promocodeInput.disabled = true;
+                    document.querySelector('.access-promo').disabled = true;
+                } else {
+                    Toastify({
+                        text: data.message,
+                        duration: 3000,
+                        gravity: 'bottom',
+                        backgroundColor: 'linear-gradient(to right, #ff416c, #ff4b2b)',
+                    }).showToast();
+                }
+
+            })
+            .catch(error => {
+                console.error('Error applying promo code:', error);
+                Toastify({
+                    text: 'Произошла ошибка при применении промокода.',
+                    duration: 3000,
+                    gravity: 'bottom',
+                    backgroundColor: 'linear-gradient(to right, #ff416c, #ff4b2b)',
+                }).showToast();
+            });
+    }
+
 </script>
 </html>

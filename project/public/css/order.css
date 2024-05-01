@@ -151,7 +151,19 @@ input[type="submit"]:hover {
     border: none;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
+.access-promo:hover {
+    background-color: #3a47c0;
+}
+
+.promocode {
+    margin-top: 20px;
+}
+
 
 .promocode input {
     width: calc(90% - 15px);

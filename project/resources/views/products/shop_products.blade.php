@@ -155,20 +155,20 @@
         let cartElement = document.querySelector('.bucket');
         cartElement.innerHTML = '';
 
-        let cartTitle = document.createElement('h2');
-        cartTitle.textContent = 'Корзина';
-        cartElement.appendChild(cartTitle);
-
-
         for (let item of cartArray) {
             let newItem = document.createElement('div');
             newItem.classList.add('cart');
+
+            let image = document.createElement('img');
+            image.src = '/storage/' + item.image;
+            newItem.appendChild(image);
+
             newItem.innerHTML = `
-            <img src="storage/" ${item.image} alt="${item.name}">
+            <img src="${image.src}" alt="${item.name}">
             <div class="cart-item">
                 <p>${item.name}</p>
                 <strong>${item.price} ₽</strong>
-                <strong>Количество: ${item.quantity}</strong>
+                <strong>Количество:${item.quantity}</strong>
                 <button class="remove-from-cart" data-id="${item.id}" onclick="window.location.href='/remove-from-cart/${item.id}'">Удалить из корзины</button>
             </div>
         `;

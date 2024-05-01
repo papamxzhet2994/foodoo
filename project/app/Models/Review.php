@@ -5,19 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Promotion extends Model
+class Review extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
-        'description',
+        'review',
+        'rating',
         'image',
-        'start_date',
-        'end_date',
-        'is_active',
-        'promocode',
-        'discount',
-        'shop_id'
     ];
 }

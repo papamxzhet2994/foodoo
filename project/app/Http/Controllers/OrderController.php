@@ -14,7 +14,12 @@ class OrderController extends Controller
         $cart = session()->get('cart', []);
         $productIds = array_keys($cart);
 
-        $total = array_sum(array_column($cart, 'price'));
+        $total = 0;
+        foreach ($cart as $productId => $details) {
+            $total += $details['price'] * $details['quantity'];
+        }
+
+        $total = number_format($total, 2, '.', '');
         $products = Product::whereIn('id', $productIds)->get();
 
         return view('orders.index', compact('cart', 'products', 'total'));
@@ -28,6 +33,14 @@ class OrderController extends Controller
         $order->email = auth()->user()->email;
         $order->address = $request->input('address');
         $order->phone = $request->input('phone');
+        $totalWithPromo = session()->get('total_with_promo');
+
+        if ($totalWithPromo) {
+            $order->total = $totalWithPromo;
+        } else {
+            $order->total = $request->input('total');
+        }
+
         $order->save();
 
         $cart = session()->get('cart', []);
@@ -45,9 +58,11 @@ class OrderController extends Controller
         }
 
         session()->forget('cart');
+        session()->forget('total_with_promo');
 
         return view('orders.confirm');
     }
+
 
     public function confirm()
     {
@@ -66,12 +81,10 @@ class OrderController extends Controller
         $userName = $order->name;
         $userEmail = $order->email;
         $orderProducts = OrderProduct::where('order_id', $order->id)->get();
-        $totalPrice = $orderProducts->sum('total_price');
 
 
-        return view('orders.info', compact('order', 'orderProducts', 'totalPrice', 'userName', 'userEmail'));
+        return view('orders.info', compact('order', 'orderProducts', 'userName', 'userEmail'));
     }
 
 
 }
-
